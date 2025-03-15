@@ -38,17 +38,17 @@ const TopBar = () => {
     }
 
     return (
-        <section className="w-full px-4 pt-4 border-b-1 border-b-light-gray">
-            <h2 className="text-[1.5rem] font-bold ml-2 text-text">
+        <section className="w-full px-4 pt-4 border-b-1 border-b-light-gray dark:bg-d-bg dark:border-b-d-gray-bg">
+            <h2 className="text-[1.5rem] font-bold ml-2 text-text dark:text-d-text">
                 Поиск
             </h2>
             <div className="relative">
                 <FiSearch
                     className={`mt-2 text-xl absolute left-3 top-1/2 transform -translate-y-1/2
-                        ${isFocused ? 'text-text' : 'text-light-gray'}`}
+                        ${isFocused ? 'text-text dark:text-d-text' : 'text-light-gray dark:text-d-dark-gray'}`}
                 />
                 <input
-                    className="w-full rounded-[1rem] pl-10 pr-3 py-2 bg-light-gray-bg placeholder-light-gray mt-[1.12rem] focus:outline-none text-text"
+                    className="w-full rounded-[1rem] pl-10 pr-3 py-2 bg-light-gray-bg placeholder-light-gray dark:placeholder-d-dark-gray dark:bg-d-gray-bg mt-[1.12rem] focus:outline-none text-text dark:text-d-text"
                     placeholder="Введите имя, тег, почту..."
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}

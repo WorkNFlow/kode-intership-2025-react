@@ -12,7 +12,7 @@ const Filter = () => {
                     <li key={filter.id}>
                         <button
                             className={`text-[1rem] font-semibold px-3 py-2
-                                ${searchData['filterBy'] === filter.id ? 'text-text border-b-2 border-b-purple' : 'text-dark-gray'}`}
+                                ${searchData['filterBy'] === filter.id ? 'text-text dark:text-d-text border-b-2 border-b-purple dark:border-b-d-purple' : 'text-dark-gray dark:text-d-dark-gray'}`}
                             // @ts-expect-error Parameter 'e' implicitly has an 'any' type.
                             onClick={(e) =>  handleChange(e)}
                             id={filter.id}

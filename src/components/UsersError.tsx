@@ -6,27 +6,27 @@ const UsersError = ({inDetails=false}) => {
     const { fetchUsers } = useContext(UsersContext);
 
     return (
-        <section className={`w-full ${inDetails ? "h-screen" : "flex-1"} flex items-center justify-center`}>
+        <section className={`w-full ${inDetails ? "h-screen" : "flex-1"} flex items-center justify-center dark:bg-d-bg`}>
             <div className={"flex flex-col items-center gap-3"}>
                 <p className={"text-[3.5rem] -mb-4"}>
                     🛸
                 </p>
-                <p className={"text-text text-[1.06rem] font-semibold"}>
+                <p className={"text-text dark:text-d-text text-[1.06rem] font-semibold"}>
                     Какой-то сверхразум все сломал
                 </p>
-                <p className={"text-dark-gray font-normal"}>
+                <p className={"text-dark-gray dark:text-d-light-gray font-normal"}>
                     Постараемся быстро починить
                 </p>
                 {inDetails ? (
                     <Link
                         to={"/"}
-                        className={"font-semibold text-purple cursor-pointer"}>
+                        className={"font-semibold text-purple dark:text-d-purple cursor-pointer"}>
                         Вернуться на главную
                     </Link>
                     ) : (
                     <button
                         onClick={fetchUsers}
-                        className={"font-semibold text-purple cursor-pointer"}
+                        className={"font-semibold text-purple dark:text-d-purple cursor-pointer"}
                     >
                         Попробовать снова
                     </button>

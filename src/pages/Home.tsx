@@ -66,7 +66,7 @@ const Home = () => {
                 <Users />
                 {isModalOpen && (
                     <>
-                        <div className="fixed inset-0 bg-black opacity-50 z-10" onClick={() => setIsModalOpen(false)}></div>
+                        <div className="fixed inset-0 bg-black dark:bg-[#252525] opacity-50 z-10" onClick={() => setIsModalOpen(false)}></div>
                         <SortModal/>
                     </>
                 )}

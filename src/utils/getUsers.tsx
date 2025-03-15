@@ -1,4 +1,4 @@
-import {User} from "../components/Users";
+import {User} from "../App.tsx";
 
 const getAllUsers = async () => {
     const options = {

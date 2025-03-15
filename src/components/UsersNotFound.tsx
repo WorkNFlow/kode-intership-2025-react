@@ -6,10 +6,10 @@ const UsersNotFound = () => {
                 <p className={"text-[3.5rem] -mb-4"}>
                     🔍
                 </p>
-                <p className={"text-text text-[1.06rem] font-semibold"}>
+                <p className={"text-text dark:text-d-text text-[1.06rem] font-semibold"}>
                     Мы никого не нашли
                 </p>
-                <p className={"text-dark-gray font-normal"}>
+                <p className={"text-dark-gray dark:text-d-light-gray font-normal"}>
                     Попробуй скорректировать запрос
                 </p>
             </div>

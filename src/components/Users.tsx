@@ -123,7 +123,7 @@ const Users = () => {
 
     return (
         <UsersContext.Provider value={usersContextValue}>
-            <section className="w-full px-4 py-6">
+            <section className="w-full px-4 py-6 dark:bg-d-bg">
                 <div className="flex flex-col">
                     {searchData.sortBy === "byBirthday" ? (
                         sortedYears.map((year, yearIndex) => (
@@ -141,13 +141,13 @@ const Users = () => {
                                                     className="rounded-full w-18 h-18"
                                                 />
                                                 <div className="flex flex-col">
-                                                    <div className="flex text-text gap-1 items-center">
+                                                    <div className="flex text-text dark:text-d-text gap-1 items-center">
                                                         <p>{user.firstName} {user.lastName}</p>
-                                                        <p className="text-dark-gray text-[0.88rem]">{user.userTag}</p>
+                                                        <p className="text-dark-gray dark:text-d-dark-gray text-[0.88rem]">{user.userTag}</p>
                                                     </div>
-                                                    <p className="text-[#55555C] text-[0.81rem]">{user.department}</p>
+                                                    <p className="text-[#55555C] dark:text-d-light-gray text-[0.81rem]">{user.department}</p>
                                                 </div>
-                                                <p className="text-[0.94rem] text-[#55555C] ml-auto">
+                                                <p className="text-[0.94rem] text-[#55555C] dark:text-d-light-gray ml-auto">
                                                     {new Date(user.birthday).getDate()} {MonthsRu[new Date(user.birthday).getMonth()]}
                                                 </p>
                                             </Link>
@@ -173,13 +173,13 @@ const Users = () => {
                                     className="rounded-full w-18 h-18"
                                 />
                                 <div className="flex flex-col">
-                                    <div className="flex text-text gap-1">
+                                    <div className="flex text-text dark:text-d-text gap-1">
                                         <p>{user.firstName} {user.lastName}</p>
-                                        <p className="text-dark-gray text-[0.88rem]">{user.userTag}</p>
+                                        <p className="text-dark-gray dark:text-dark-gray text-[0.88rem]">{user.userTag}</p>
                                     </div>
-                                    <p className="text-[#55555C] text-[0.81rem]">{user.department}</p>
+                                    <p className="text-[#55555C] dark:text-light-gray text-[0.81rem]">{user.department}</p>
                                 </div>
-                                <p className="text-[0.94rem] text-[#55555C] ml-auto">
+                                <p className="text-[0.94rem] text-[#55555C] dark:text-light-gray ml-auto">
                                     {new Date(user.birthday).getDate()} {MonthsRu[new Date(user.birthday).getMonth()]}
                                 </p>
                             </Link>

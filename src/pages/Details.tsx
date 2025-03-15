@@ -35,12 +35,12 @@ const Details = () => {
     return (
         <main className={"w-screen"}>
             <section
-                className={"w-full bg-light-gray-bg flex flex-col items-center px-9 py-7"}
+                className={"w-full bg-light-gray-bg dark:bg-d-gray-bg flex flex-col items-center px-9 py-7"}
             >
                 <div
                     className={"w-full"}
                 >
-                    <Link to={"/"}>
+                    <Link to={"/"} className={"dark:text-d-text"}>
                         <IoIosArrowBack/>
                     </Link>
                 </div>
@@ -52,10 +52,10 @@ const Details = () => {
                         alt={user.userTag}
                         className={"rounded-full w-[6.5rem] h-[6.5rem] mb-6"}
                     />
-                    <p className={"text-text text-2xl font-bold"}>
-                        {user.firstName} {user.lastName} <span className={"text-[1.06rem] text-dark-gray font-normal"}>{user.userTag}</span>
+                    <p className={"text-text dark:text-d-text text-2xl font-bold"}>
+                        {user.firstName} {user.lastName} <span className={"text-[1.06rem] text-dark-gray dark:text-d-dark-gray font-normal"}>{user.userTag}</span>
                     </p>
-                    <p className={"text-[0.81rem] text-[#55555C] mt-3"}>{user.department}</p>
+                    <p className={"text-[0.81rem] text-[#55555C] dark:text-d-light-gray mt-3"}>{user.department}</p>
 
                 </div>
             </section>
@@ -63,16 +63,16 @@ const Details = () => {
             <section
                 className={"w-full px-5"}
             >
-                <div className={"w-full flex justify-between items-center py-7 border-b-1 border-b-light-gray-bg"}>
+                <div className={"w-full flex justify-between items-center py-7 border-b-1 border-b-light-gray-bg dark:border-b-d-gray-bg"}>
                     <div className={"flex gap-4 items-center"}>
                         <FaRegStar
-                            className={"text-xl text-text"}
+                            className={"text-xl text-text dark:text-d-text"}
                         />
-                        <p className={"text-text"}>
+                        <p className={"text-text dark:text-d-text"}>
                             {formattedBirthday}
                         </p>
                     </div>
-                    <p>{formattedAge}</p>
+                    <p className={"dark:text-d-text"}>{formattedAge}</p>
                 </div>
 
                 <button
@@ -82,9 +82,9 @@ const Details = () => {
                     }}
                 >
                     <BsTelephone
-                        className={"text-xl text-text"}
+                        className={"text-xl text-text dark:text-d-text"}
                     />
-                    <p className={"text-text"}>
+                    <p className={"text-text dark:text-d-text"}>
                         {user.phone}
                     </p>
                 </button>

@@ -13,9 +13,9 @@ const SortModal = () => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-20" onClick={() => setIsModalOpen(false)}>
-            <div className="bg-white py-6 px-4 w-[373px] rounded-xl" onClick={handleModalClick}>
+            <div className="bg-white dark:bg-d-gray-bg py-6 px-4 w-[373px] rounded-xl" onClick={handleModalClick}>
                 <div className="flex justify-center items-center gap-2 relative">
-                    <p className="text-xl font-semibold text-text">
+                    <p className="text-xl font-semibold text-text dark:text-d-text">
                         Сортировка
                     </p>
                     <button
@@ -23,7 +23,7 @@ const SortModal = () => {
                         onClick={() => setIsModalOpen(!isModalOpen)}
                     >
                         <RxCross2
-                            className=" text-2xl font-bold text-light-gray bg-light-gray-bg p-[0.3rem] rounded-full cursor-pointer"
+                            className=" text-2xl font-bold text-light-gray bg-light-gray-bg dark:bg-[#656565] dark:text-d-light-gray p-[0.3rem] rounded-full cursor-pointer"
                         />
                     </button>
                 </div>
@@ -39,7 +39,7 @@ const SortModal = () => {
                             }}
                             value={"byAlphabet"}
                         />
-                        <label htmlFor={"byAlphabet"} className={"text-text"}>
+                        <label htmlFor={"byAlphabet"} className={"text-text dark:text-d-text"}>
                             По алфавиту
                         </label>
                     </div>
@@ -54,7 +54,7 @@ const SortModal = () => {
                             }}
                             value={"byBirthday"}
                         />
-                        <label htmlFor={"byBirthday"} className={"text-text"}>
+                        <label htmlFor={"byBirthday"} className={"text-text dark:text-d-text"}>
                             По дню рождения
                         </label>
                     </div>
