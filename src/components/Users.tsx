@@ -1,29 +1,36 @@
-import {useContext, useState, useEffect, createContext} from "react";
-import {SearchContext} from "../pages/Home.tsx";
-import {LanguageContext} from "../App.tsx";
+import { useContext, useState, useEffect, createContext } from "react";
+import { SearchContext } from "../pages/Home.tsx";
+import { LanguageContext } from "../App.tsx";
 import getFilteredSortedUsers from "../utils/getUsers.tsx";
 import SkeletonLoader from "./SkeletonLoader";
 import UsersError from "./UsersError.tsx";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import UsersNotFound from "./UsersNotFound.tsx";
-import { User } from "../App.tsx"
+import { User } from "../App.tsx";
 
-export const UsersContext = createContext({
-    fetchUsers: async () => {
-    }
+interface UsersContextType {
+    fetchUsers: () => Promise<void>;
+}
+
+export const UsersContext = createContext<UsersContextType>({
+    fetchUsers: async () => {}
 });
+
+// Явно определяем тип объекта с индексной сигнатурой
+interface GroupedUsers {
+    [key: string]: User[];
+}
 
 const MonthsRu = ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
 const MonthsEn = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
-
 const Users = () => {
-    const {searchData} = useContext(SearchContext);
-    const [displayedUsers, setDisplayedUsers] = useState([]);
-    const [groupedUsers, setGroupedUsers] = useState({});
+    const { searchData } = useContext(SearchContext);
+    const [displayedUsers, setDisplayedUsers] = useState<User[]>([]);
+    const [groupedUsers, setGroupedUsers] = useState<GroupedUsers>({});
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const {language} = useContext(LanguageContext);
+    const { language } = useContext(LanguageContext);
 
     const fetchUsers = async () => {
         setIsLoading(true);
@@ -35,6 +42,11 @@ const Users = () => {
                 searchData.filterBy,
                 searchData.sortBy,
             );
+
+            if (users === "error") {
+                setHasError(true);
+                return;
+            }
 
             setDisplayedUsers(users);
 
@@ -50,24 +62,14 @@ const Users = () => {
         }
     };
 
-    const usersContextValue = {
-        fetchUsers
-    };
-
-    useEffect(() => {
-        fetchUsers();
-    }, [searchData]);
-
-
-
-    const groupUsersByUpcomingBirthday = (users) => {
+    const groupUsersByUpcomingBirthday = (users: User[]): GroupedUsers => {
         const today = new Date();
         const currentYear = today.getFullYear();
         const nextYear = currentYear + 1;
 
-        const result = {
-            [currentYear]: [],
-            [nextYear]: []
+        const result: GroupedUsers = {
+            [currentYear.toString()]: [],
+            [nextYear.toString()]: []
         };
 
         users.forEach((user: User) => {
@@ -83,16 +85,24 @@ const Users = () => {
                 (birthMonth === todayMonth && birthDay >= todayDay);
 
             if (isBirthdayThisYear) {
-                result[currentYear].push(user);
+                result[currentYear.toString()].push(user);
             } else {
-                result[nextYear].push(user);
+                result[nextYear.toString()].push(user);
             }
         });
 
         return result;
     };
 
-    const sortedYears = Object.keys(groupedUsers).sort((a, b) => a - b);
+    useEffect(() => {
+        fetchUsers();
+    }, [searchData]);
+
+    const usersContextValue: UsersContextType = {
+        fetchUsers
+    };
+
+    const sortedYears = Object.keys(groupedUsers).sort((a, b) => Number(a) - Number(b));
 
     if (isLoading) {
         return <SkeletonLoader/>;
@@ -120,7 +130,7 @@ const Users = () => {
                         sortedYears.map((year, yearIndex) => (
                             <div key={year} className="w-full">
                                 {/* Only render the year group if it has users */}
-                                {groupedUsers[year].length > 0 && (
+                                {groupedUsers[year] && groupedUsers[year].length > 0 && (
                                     <>
                                         {/* Users in this year group */}
                                         {groupedUsers[year].map((user) => (
@@ -144,13 +154,15 @@ const Users = () => {
                                             </Link>
                                         ))}
 
-                                        {yearIndex < sortedYears.length - 1 && groupedUsers[sortedYears[yearIndex + 1]].length > 0 && (
-                                            <div className="relative flex items-center my-4">
-                                                <div className="flex-grow border-t border-gray-300"></div>
-                                                <span className="flex-shrink mx-16 text-gray-400">{sortedYears[yearIndex + 1]}</span>
-                                                <div className="flex-grow border-t border-gray-300"></div>
-                                            </div>
-                                        )}
+                                        {yearIndex < sortedYears.length - 1 &&
+                                            groupedUsers[sortedYears[yearIndex + 1]] &&
+                                            groupedUsers[sortedYears[yearIndex + 1]].length > 0 && (
+                                                <div className="relative flex items-center my-4">
+                                                    <div className="flex-grow border-t border-gray-300"></div>
+                                                    <span className="flex-shrink mx-16 text-gray-400">{sortedYears[yearIndex + 1]}</span>
+                                                    <div className="flex-grow border-t border-gray-300"></div>
+                                                </div>
+                                            )}
                                     </>
                                 )}
                             </div>

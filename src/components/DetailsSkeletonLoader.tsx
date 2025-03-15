@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import {IoIosArrowBack} from "react-icons/io";
 import {FaRegStar} from "react-icons/fa";
