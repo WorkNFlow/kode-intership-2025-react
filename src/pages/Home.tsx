@@ -26,7 +26,6 @@ export const ModalContext = createContext<{
     setIsModalOpen: () => {},
 });
 
-// Имя ключа для хранения в localStorage
 const FILTERS_STORAGE_KEY = "userFiltersData";
 
 const Home = () => {
@@ -39,12 +38,9 @@ const Home = () => {
         filterBy: "all"
     };
 
-    // Инициализация состояния с проверкой localStorage
     const [searchData, setSearchData] = useState<SearchData>(() => {
-        // Пробуем получить сохраненные фильтры из localStorage
         const savedFilters = localStorage.getItem(FILTERS_STORAGE_KEY);
 
-        // Если данные есть, парсим и возвращаем их
         if (savedFilters) {
             try {
                 return JSON.parse(savedFilters);
@@ -54,11 +50,9 @@ const Home = () => {
             }
         }
 
-        // Если данных нет, возвращаем значения по умолчанию
         return defaultSearchData;
     });
 
-    // Сохраняем данные в localStorage при изменении searchData
     useEffect(() => {
         localStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(searchData));
     }, [searchData]);

@@ -1,10 +1,12 @@
 import { RxCross2 } from "react-icons/rx";
 import { useContext } from "react";
 import {ModalContext, SearchContext} from "../pages/Home.tsx";
+import {LanguageContext} from "../App.tsx";
 
 const SortModal = () => {
     const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
     const { searchData, handleChange } = useContext(SearchContext);
+    const {language} = useContext(LanguageContext);
 
     // @ts-expect-error Parameter 'e' implicitly has an 'any' type.
     const handleModalClick = (e) => {
@@ -16,7 +18,7 @@ const SortModal = () => {
             <div className="bg-white dark:bg-d-gray-bg py-6 px-4 w-[373px] rounded-xl" onClick={handleModalClick}>
                 <div className="flex justify-center items-center gap-2 relative">
                     <p className="text-xl font-semibold text-text dark:text-d-text">
-                        Сортировка
+                        {language == "ru" ? "Сортировка" : "Sort"}
                     </p>
                     <button
                         className={"absolute right-2"}
@@ -40,7 +42,7 @@ const SortModal = () => {
                             value={"byAlphabet"}
                         />
                         <label htmlFor={"byAlphabet"} className={"text-text dark:text-d-text"}>
-                            По алфавиту
+                            {language == "ru" ? "По алфавиту" : "By alphabet"}
                         </label>
                     </div>
                     <div className={"flex gap-4 items-center"}>
@@ -55,7 +57,7 @@ const SortModal = () => {
                             value={"byBirthday"}
                         />
                         <label htmlFor={"byBirthday"} className={"text-text dark:text-d-text"}>
-                            По дню рождения
+                            {language == "ru" ? "По дню рождения" : "By birthday"}
                         </label>
                     </div>
                 </div>

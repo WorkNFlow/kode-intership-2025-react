@@ -23,7 +23,6 @@ export const NetworkContext = createContext<{
     isLoading: true
 });
 
-// Создаем контекст для языка
 export type Language = "ru" | "en";
 
 export const LanguageContext = createContext<{
@@ -46,21 +45,16 @@ const App = () => {
     const [isOnline, setOnline] = useState<boolean>(true);
     const [isLoading, setLoading] = useState<boolean>(true);
 
-    // Инициализируем состояние языка с проверкой localStorage
     const [language, setLanguage] = useState<Language>(() => {
-        // Проверяем localStorage
         const savedLanguage = localStorage.getItem('language');
 
-        // Если есть сохраненное значение, используем его
         if (savedLanguage === 'ru' || savedLanguage === 'en') {
             return savedLanguage;
         }
 
-        // Если нет сохраненного значения, возвращаем "ru" по умолчанию
         return "ru";
     });
 
-    // Функция для переключения языка с сохранением в localStorage
     const toggleLanguage = () => {
         const newLanguage: Language = language === "ru" ? "en" : "ru";
         setLanguage(newLanguage);
@@ -77,23 +71,17 @@ const App = () => {
             setLoading(false);
         };
 
-        // Определяем язык браузера только если нет значения в localStorage
         const detectBrowserLanguage = () => {
-            // Проверяем localStorage
             const savedLanguage = localStorage.getItem('language');
 
-            // Если есть сохраненное значение, не меняем текущий язык
             if (savedLanguage === 'ru' || savedLanguage === 'en') {
                 return;
             }
 
-            // Получаем язык из navigator.language
             const browserLang = navigator.language.toLowerCase();
 
-            // Проверяем, содержит ли строка "ru", иначе устанавливаем "en"
             const detectedLang: Language = browserLang.includes("ru") ? "ru" : "en";
 
-            // Устанавливаем определенный язык и сохраняем в localStorage
             setLanguage(detectedLang);
             localStorage.setItem('language', detectedLang);
         };
@@ -121,16 +109,13 @@ const App = () => {
         // Проверяем localStorage
         const savedMode = localStorage.getItem('darkMode');
 
-        // Если есть сохраненное значение, используем его
         if (savedMode !== null) {
             return savedMode === 'true';
         }
 
-        // Иначе используем значение из классов body как было раньше
         return document.body.classList.contains("dark");
     });
 
-    // Применяем тему при монтировании компонента и при изменении isDarkMode
     useEffect(() => {
         if (isDarkMode) {
             document.body.classList.add("dark");
@@ -142,7 +127,6 @@ const App = () => {
     const toggleTheme = () => {
         const newMode = !isDarkMode;
         setIsDarkMode(newMode);
-        // Сохраняем в localStorage
         localStorage.setItem('darkMode', newMode.toString());
     };
 
