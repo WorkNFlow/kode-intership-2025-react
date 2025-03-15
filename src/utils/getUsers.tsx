@@ -1,12 +1,12 @@
 import {User} from "../App.tsx";
 
-const getAllUsers = async () => {
+const getAllUsers = async (filter="all") => {
     const options = {
         method: "GET",
         headers: { "Content-Type": "application/json" },
     };
     const filteredUsers = await fetch(
-        `https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=all`,
+        `https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=${filter}`,
         // "https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__code=500&__dynamic=true",
         options
     )
@@ -19,8 +19,8 @@ const getAllUsers = async () => {
     return filteredUsers.items;
 };
 
-const getFilteredSortedUsers = async (search: string, filter: string, sort: string, usersList: User[]) => {
-    let filteredUsers = usersList.length === 0 ? await getAllUsers() : usersList;
+const getFilteredSortedUsers = async (search: string="", filter: string="all", sort: string="byAlphabet") => {
+    let filteredUsers = await getAllUsers(filter);
     if (filteredUsers === "error") {
         return 'error';
     }
@@ -34,10 +34,6 @@ const getFilteredSortedUsers = async (search: string, filter: string, sort: stri
             );
         });
     }
-
-    filteredUsers = filteredUsers.filter((user: User) => {
-        return (user.department == filter || filter == "all");
-    })
 
     if (sort === "byAlphabet") {
         filteredUsers.sort((a: User, b: User) => {
@@ -55,7 +51,6 @@ const getFilteredSortedUsers = async (search: string, filter: string, sort: stri
         });
     }
 
-    console.log(filteredUsers.length);
     return filteredUsers;
 };
 

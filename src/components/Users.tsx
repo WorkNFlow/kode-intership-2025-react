@@ -1,6 +1,6 @@
 import {useContext, useState, useEffect, createContext} from "react";
 import {SearchContext} from "../pages/Home.tsx";
-import {AllUsersContext} from "../App.tsx";
+import {LanguageContext} from "../App.tsx";
 import getFilteredSortedUsers from "../utils/getUsers.tsx";
 import SkeletonLoader from "./SkeletonLoader";
 import UsersError from "./UsersError.tsx";
@@ -14,16 +14,17 @@ export const UsersContext = createContext({
 });
 
 const MonthsRu = ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
+const MonthsEn = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
 
 const Users = () => {
     const {searchData} = useContext(SearchContext);
-    const {allUsers, setAllUsers} = useContext(AllUsersContext);
     const [displayedUsers, setDisplayedUsers] = useState([]);
     const [groupedUsers, setGroupedUsers] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
+    const {language} = useContext(LanguageContext);
 
-    // Define the fetchUsers function
     const fetchUsers = async () => {
         setIsLoading(true);
         setHasError(false);
@@ -33,15 +34,10 @@ const Users = () => {
                 searchData.searchText,
                 searchData.filterBy,
                 searchData.sortBy,
-                allUsers
             );
 
             setDisplayedUsers(users);
-            if (allUsers.length === 0) {
-                setAllUsers(users);
-            }
 
-            // Group users by upcoming birthday year if sorting by birthday
             if (searchData.sortBy === "byBirthday") {
                 const grouped = groupUsersByUpcomingBirthday(users);
                 setGroupedUsers(grouped);
@@ -54,7 +50,6 @@ const Users = () => {
         }
     };
 
-    // Create context value
     const usersContextValue = {
         fetchUsers
     };
@@ -65,7 +60,6 @@ const Users = () => {
 
 
 
-    // Function to group users by upcoming birthday year (this year or next year)
     const groupUsersByUpcomingBirthday = (users) => {
         const today = new Date();
         const currentYear = today.getFullYear();
@@ -84,7 +78,6 @@ const Users = () => {
             const todayMonth = today.getMonth();
             const todayDay = today.getDate();
 
-            // Determine if the birthday is in current year or next year
             const isBirthdayThisYear =
                 birthMonth > todayMonth ||
                 (birthMonth === todayMonth && birthDay >= todayDay);
@@ -99,10 +92,8 @@ const Users = () => {
         return result;
     };
 
-    // Get sorted years for rendering
     const sortedYears = Object.keys(groupedUsers).sort((a, b) => a - b);
 
-    // Render logic based on loading and error states
     if (isLoading) {
         return <SkeletonLoader/>;
     }
@@ -148,7 +139,7 @@ const Users = () => {
                                                     <p className="text-[#55555C] dark:text-d-light-gray text-[0.81rem]">{user.department}</p>
                                                 </div>
                                                 <p className="text-[0.94rem] text-[#55555C] dark:text-d-light-gray ml-auto">
-                                                    {new Date(user.birthday).getDate()} {MonthsRu[new Date(user.birthday).getMonth()]}
+                                                    {new Date(user.birthday).getDate()} {language == "ru" ? MonthsRu[new Date(user.birthday).getMonth()] : MonthsEn[new Date(user.birthday).getMonth()]}
                                                 </p>
                                             </Link>
                                         ))}
@@ -173,14 +164,14 @@ const Users = () => {
                                     className="rounded-full w-18 h-18"
                                 />
                                 <div className="flex flex-col">
-                                    <div className="flex text-text dark:text-d-text gap-1">
+                                    <div className="flex items-center text-text dark:text-d-text gap-1">
                                         <p>{user.firstName} {user.lastName}</p>
                                         <p className="text-dark-gray dark:text-dark-gray text-[0.88rem]">{user.userTag}</p>
                                     </div>
                                     <p className="text-[#55555C] dark:text-light-gray text-[0.81rem]">{user.department}</p>
                                 </div>
                                 <p className="text-[0.94rem] text-[#55555C] dark:text-light-gray ml-auto">
-                                    {new Date(user.birthday).getDate()} {MonthsRu[new Date(user.birthday).getMonth()]}
+                                    {new Date(user.birthday).getDate()} {language == "ru" ? MonthsRu[new Date(user.birthday).getMonth()] : MonthsEn[new Date(user.birthday).getMonth()]}
                                 </p>
                             </Link>
                         ))

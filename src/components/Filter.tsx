@@ -1,12 +1,15 @@
 import { useContext } from "react";
 import FiltersInfo from "../constants/FiltersInfo.tsx";
 import {SearchContext} from "../pages/Home.tsx";
+import {LanguageContext} from "../App.tsx";
 
-const Filter = () => {
+const Filter = ( {className=""}) => {
     const { searchData, handleChange } = useContext(SearchContext);
+    const {language} = useContext(LanguageContext);
+    console.log("classname", className)
 
     return (
-        <nav>
+        <nav className={className}>
             <ul className="flex items-center flex-wrap">
                 {FiltersInfo.map((filter) => (
                     <li key={filter.id}>
@@ -18,7 +21,7 @@ const Filter = () => {
                             id={filter.id}
                             name={"filterButton"}
                         >
-                            {filter.name}
+                            {language == "ru" ? filter.nameRu : filter.nameEn}
                         </button>
                     </li>
                 ))}
