@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
+
+*, *::after, *::before {
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+}
+
+input[type="radio"] {
+    transform: scale(1.5);
+    accent-color: var(--color-purple);
+}
+
+
+@theme {
+    --color-text: #050510;
+    --color-light-gray-bg: #F7F7F8;
+    --color-light-gray: #C3C3C6;
+    --color-dark-gray: #97979B;
+    --color-purple: #6534FF;
+}
