@@ -182,9 +182,9 @@ const Users = () => {
                                     </div>
                                     <p className="text-[#55555C] dark:text-light-gray text-[0.81rem]">{user.department}</p>
                                 </div>
-                                <p className="text-[0.94rem] text-[#55555C] dark:text-light-gray ml-auto">
-                                    {new Date(user.birthday).getDate()} {language == "ru" ? MonthsRu[new Date(user.birthday).getMonth()] : MonthsEn[new Date(user.birthday).getMonth()]}
-                                </p>
+                                {/*<p className="text-[0.94rem] text-[#55555C] dark:text-light-gray ml-auto">*/}
+                                {/*    {new Date(user.birthday).getDate()} {language == "ru" ? MonthsRu[new Date(user.birthday).getMonth()] : MonthsEn[new Date(user.birthday).getMonth()]}*/}
+                                {/*</p>*/}
                             </Link>
                         ))
                     )}

@@ -8,6 +8,7 @@ const getAllUsers = async (filter="all") => {
     const filteredUsers = await fetch(
         `https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__example=${filter}`,
         // "https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__code=500&__dynamic=true",
+        // "https://stoplight.io/mocks/kode-frontend-team/koder-stoplight/86566464/users?__dynamic=true",
         options
     )
         .then((response) => response.json())
